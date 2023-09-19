@@ -1,5 +1,6 @@
 package com.mycompany.processamentoimagens;
 
+import java.awt.geom.FlatteningPathIterator;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +16,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class telaPrincipal extends javax.swing.JFrame {
 
-    private Imagem imageA;
-    private Imagem imageB;
+    private Imagem imagemA;
+    private Imagem imagemB;
     private Imagem imageResult;
-    
+
     public telaPrincipal() {
         initComponents();
     }
@@ -50,23 +51,25 @@ public class telaPrincipal extends javax.swing.JFrame {
         btnMultiplicacao = new javax.swing.JButton();
         tfDivisao = new javax.swing.JTextField();
         btnDivisao = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 768));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelResultado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(labelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 250, 250));
+        getContentPane().add(labelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 250, 250));
 
         labelImage1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(labelImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 250, 250));
+        getContentPane().add(labelImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 250, 250));
 
         labelImage2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(labelImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 250, 250));
+        getContentPane().add(labelImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 250, 250));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 0));
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("=");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, 20, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, 20, 30));
 
         btnAnd.setText("AND");
         btnAnd.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +77,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnAndActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 120, -1));
+        getContentPane().add(btnAnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 120, -1));
 
         btnOr.setText("OR");
         btnOr.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +85,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnOrActionPerformed(evt);
             }
         });
-        getContentPane().add(btnOr, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, 120, -1));
+        getContentPane().add(btnOr, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 490, 120, -1));
 
         btnNot.setText("NOT");
         btnNot.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +93,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnNotActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNot, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 120, -1));
+        getContentPane().add(btnNot, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 490, 120, -1));
 
         btnXor.setText("XOR");
         btnXor.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +101,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnXorActionPerformed(evt);
             }
         });
-        getContentPane().add(btnXor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 120, -1));
+        getContentPane().add(btnXor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 520, 120, -1));
 
         btnCarregarImgA.setText("Carregar Imagem A");
         btnCarregarImgA.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +109,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnCarregarImgAActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCarregarImgA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 250, -1));
+        getContentPane().add(btnCarregarImgA, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, 250, -1));
 
         btnCarregarImgB.setText("Carregar Imagem B");
         btnCarregarImgB.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +117,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnCarregarImgBActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCarregarImgB, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, 250, -1));
+        getContentPane().add(btnCarregarImgB, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, 250, -1));
 
         btnEscalaCinza.setText("Escala de Cinza");
         btnEscalaCinza.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +125,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnEscalaCinzaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEscalaCinza, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 120, -1));
+        getContentPane().add(btnEscalaCinza, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 490, 120, -1));
 
         btnBinario.setText("Binário");
         btnBinario.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +133,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnBinarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 120, -1));
+        getContentPane().add(btnBinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 120, -1));
 
         btnNegativo.setText("Negativo");
         btnNegativo.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +141,8 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnNegativoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNegativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 250, -1));
-        getContentPane().add(tfAdicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, 120, 20));
+        getContentPane().add(btnNegativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 250, -1));
+        getContentPane().add(tfAdicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 590, 120, -1));
 
         btnAdicao.setText("Adição");
         btnAdicao.addActionListener(new java.awt.event.ActionListener() {
@@ -147,14 +150,14 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnAdicaoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAdicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 120, -1));
+        getContentPane().add(btnAdicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 560, 120, -1));
 
         tfSubtracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfSubtracaoActionPerformed(evt);
             }
         });
-        getContentPane().add(tfSubtracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 120, 20));
+        getContentPane().add(tfSubtracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 590, 120, 25));
 
         btnSubtracao.setText("Subtração");
         btnSubtracao.addActionListener(new java.awt.event.ActionListener() {
@@ -162,14 +165,14 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnSubtracaoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSubtracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 120, -1));
+        getContentPane().add(btnSubtracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 560, 120, -1));
 
         tfBlending.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfBlendingActionPerformed(evt);
             }
         });
-        getContentPane().add(tfBlending, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 120, -1));
+        getContentPane().add(tfBlending, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 590, 120, -1));
 
         btnBlending.setText("Blending");
         btnBlending.addActionListener(new java.awt.event.ActionListener() {
@@ -177,14 +180,14 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnBlendingActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBlending, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 120, -1));
+        getContentPane().add(btnBlending, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 560, 120, -1));
 
         tfMultiplicacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfMultiplicacaoActionPerformed(evt);
             }
         });
-        getContentPane().add(tfMultiplicacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 120, -1));
+        getContentPane().add(tfMultiplicacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 650, 120, 25));
 
         btnMultiplicacao.setText("Multiplicação");
         btnMultiplicacao.addActionListener(new java.awt.event.ActionListener() {
@@ -192,14 +195,14 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnMultiplicacaoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMultiplicacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 120, -1));
+        getContentPane().add(btnMultiplicacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 620, 120, 25));
 
         tfDivisao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDivisaoActionPerformed(evt);
             }
         });
-        getContentPane().add(tfDivisao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 530, 120, -1));
+        getContentPane().add(tfDivisao, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 650, 120, 25));
 
         btnDivisao.setText("Divisão");
         btnDivisao.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +210,11 @@ public class telaPrincipal extends javax.swing.JFrame {
                 btnDivisaoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDivisao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 500, 120, -1));
+        getContentPane().add(btnDivisao, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 620, 120, 25));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel2.setText("PROCESSAMENTO DE IMAGENS");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 970, 100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -217,10 +224,10 @@ public class telaPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        Imagem imgABinario = new Imagem(getBinaryImage(imageA));
-        Imagem imgBBinario = new Imagem(getBinaryImage(imageB));
+        Imagem imgABinario = new Imagem(getBinaryImage(imagemA));
+        Imagem imgBBinario = new Imagem(getBinaryImage(imagemB));
 
-        Imagem imgResultado = doOperationInImages(imgABinario, imgBBinario, null, Operation.AND);
+        Imagem imgResultado = executaOperacaoNasImagens(imgABinario, imgBBinario, null, Operation.AND);
         this.labelResultado.setIcon(new ImageIcon(imgResultado.getMatrixImage()));
     }//GEN-LAST:event_btnAndActionPerformed
 
@@ -229,10 +236,10 @@ public class telaPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        Imagem imgABinario = new Imagem(getBinaryImage(imageA));
-        Imagem imgBBinario = new Imagem(getBinaryImage(imageB));
+        Imagem imgABinario = new Imagem(getBinaryImage(imagemA));
+        Imagem imgBBinario = new Imagem(getBinaryImage(imagemB));
 
-        Imagem imgResultado = doOperationInImages(imgABinario, imgBBinario, null, Operation.OR);
+        Imagem imgResultado = executaOperacaoNasImagens(imgABinario, imgBBinario, null, Operation.OR);
         labelResultado.setIcon(new ImageIcon(imgResultado.getMatrixImage()));
     }//GEN-LAST:event_btnOrActionPerformed
 
@@ -241,10 +248,10 @@ public class telaPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        Imagem imgABinario = new Imagem(getBinaryImage(imageA));
-        Imagem imgBBinario = new Imagem(getBinaryImage(imageB));
+        Imagem imgABinario = new Imagem(getBinaryImage(imagemA));
+        Imagem imgBBinario = new Imagem(getBinaryImage(imagemB));
 
-        Imagem imgResultado = doOperationInImages(imgABinario, imgBBinario, null, Operation.NOT);
+        Imagem imgResultado = executaOperacaoNasImagens(imgABinario, imgBBinario, null, Operation.NOT);
         labelResultado.setIcon(new ImageIcon(imgResultado.getMatrixImage()));
     }//GEN-LAST:event_btnNotActionPerformed
 
@@ -253,42 +260,46 @@ public class telaPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        Imagem imgABinario = new Imagem(getBinaryImage(imageA));
-        Imagem imgBBinario = new Imagem(getBinaryImage(imageB));
+        Imagem imgABinario = new Imagem(getBinaryImage(imagemA));
+        Imagem imgBBinario = new Imagem(getBinaryImage(imagemB));
 
-        Imagem imgResultado = doOperationInImages(imgABinario, imgBBinario, null, Operation.XOR);
+        Imagem imgResultado = executaOperacaoNasImagens(imgABinario, imgBBinario, null, Operation.XOR);
         labelResultado.setIcon(new ImageIcon(imgResultado.getMatrixImage()));
     }//GEN-LAST:event_btnXorActionPerformed
 
     private void btnCarregarImgAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarImgAActionPerformed
-        this.imageA = loadImage();
-        this.labelImage1.setIcon(new ImageIcon(imageA.getImage()));
+        this.imagemA = carregarImagem();
+        if (imagemA != null) {
+            this.labelImage1.setIcon(new ImageIcon(imagemA.getImage()));
+        }
     }//GEN-LAST:event_btnCarregarImgAActionPerformed
 
     private void btnCarregarImgBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarImgBActionPerformed
-        this.imageB = loadImage();
-        this.labelImage2.setIcon(new ImageIcon(imageB.getImage()));
+        this.imagemB = carregarImagem();
+        if (imagemB != null) {
+            this.labelImage2.setIcon(new ImageIcon(imagemB.getImage()));
+        }
     }//GEN-LAST:event_btnCarregarImgBActionPerformed
 
     private void btnEscalaCinzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscalaCinzaActionPerformed
         if (!validateImgA()) {
             return;
         }
-        labelResultado.setIcon(new ImageIcon(getGrayImage(imageA)));
+        labelResultado.setIcon(new ImageIcon(getGrayImage(imagemA)));
     }//GEN-LAST:event_btnEscalaCinzaActionPerformed
 
     private void btnBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBinarioActionPerformed
         if (!validateImgA()) {
             return;
         }
-        labelResultado.setIcon(new ImageIcon(getBinaryImage(imageA)));
+        labelResultado.setIcon(new ImageIcon(getBinaryImage(imagemA)));
     }//GEN-LAST:event_btnBinarioActionPerformed
 
     private void btnNegativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNegativoActionPerformed
         if (!validateImgA()) {
             return;
         }
-        labelResultado.setIcon(new ImageIcon( doOperationInImage(imageA, null, null, Operation.NEGATIVE).getMatrixImage()));
+        labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagem(imagemA, null, null, Operation.NEGATIVE).getMatrixImage()));
     }//GEN-LAST:event_btnNegativoActionPerformed
 
     private void btnAdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicaoActionPerformed
@@ -298,13 +309,13 @@ public class telaPrincipal extends javax.swing.JFrame {
                 return;
             }
 
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageB, null, Operation.SUM).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operation.SUM).getMatrixImage()));
         } else {
             if (!validateImgA()) {
                 return;
             }
             int value = Integer.parseInt(txt);
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageB, null, Operation.SUM).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operation.SUM).getMatrixImage()));
         }
     }//GEN-LAST:event_btnAdicaoActionPerformed
 
@@ -319,13 +330,13 @@ public class telaPrincipal extends javax.swing.JFrame {
                 return;
             }
 
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageB, null, Operation.SUBTRACT).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operation.SUBTRACT).getMatrixImage()));
         } else {
             if (!validateImgA()) {
                 return;
             }
             int value = Integer.parseInt(txt);
-            labelResultado.setIcon(new ImageIcon(doOperationInImage(imageA, value, null, Operation.SUBTRACT).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagem(imagemA, value, null, Operation.SUBTRACT).getMatrixImage()));
         }
     }//GEN-LAST:event_btnSubtracaoActionPerformed
 
@@ -340,10 +351,10 @@ public class telaPrincipal extends javax.swing.JFrame {
 
         String txt = tfBlending.getText();
         if (txt == null || txt.isEmpty()) {
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageA, null, Operation.BLENDING).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemA, null, Operation.BLENDING).getMatrixImage()));
         } else {
             int coeficient = Integer.parseInt(txt);
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageA, coeficient, Operation.BLENDING).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemA, coeficient, Operation.BLENDING).getMatrixImage()));
         }
     }//GEN-LAST:event_btnBlendingActionPerformed
 
@@ -358,13 +369,13 @@ public class telaPrincipal extends javax.swing.JFrame {
                 return;
             }
 
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageB, null, Operation.MULTIPLICATION).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operation.MULTIPLICATION).getMatrixImage()));
         } else {
             if (!validateImgA()) {
                 return;
             }
             int value = Integer.parseInt(txt);
-            labelResultado.setIcon(new ImageIcon(doOperationInImage(imageA, value, null, Operation.MULTIPLICATION).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagem(imagemA, value, null, Operation.MULTIPLICATION).getMatrixImage()));
         }
     }//GEN-LAST:event_btnMultiplicacaoActionPerformed
 
@@ -379,23 +390,42 @@ public class telaPrincipal extends javax.swing.JFrame {
                 return;
             }
 
-            labelResultado.setIcon(new ImageIcon(doOperationInImages(imageA, imageB, null, Operation.DIVISION).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operation.DIVISION).getMatrixImage()));
         } else {
             if (!validateImgA()) {
                 return;
             }
             int value = Integer.parseInt(txt);
-            labelResultado.setIcon(new ImageIcon(doOperationInImage(imageA, value, null, Operation.DIVISION).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagem(imagemA, value, null, Operation.DIVISION).getMatrixImage()));
         }
     }//GEN-LAST:event_btnDivisaoActionPerformed
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new telaPrincipal().setVisible(true);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new telaPrincipal().setVisible(true);
+            }
         });
     }
-    
-    public static Imagem loadImage() {
+
+    public static Imagem carregarImagem() {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens", "jpg", "jpeg", "png", "bmp", "tiff", "tif");
 
         JFileChooser fileChooser = new JFileChooser();
@@ -414,7 +444,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         return null;
     }
 
-    public static int[][] rgbToBinary(int[][] red, int[][] green, int[][] blue, int limit) {
+    public static int[][] convRbgBinario(int[][] red, int[][] green, int[][] blue, int limit) {
         int width = red.length;
         int height = red[0].length;
 
@@ -439,7 +469,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         return binaryMatrix;
     }
 
-    public static int[][] rgbToGray(int[][] red, int[][] green, int[][] blue) {
+    public static int[][] convRgbCinza(int[][] red, int[][] green, int[][] blue) {
         int width = red.length;
         int height = red[0].length;
 
@@ -459,7 +489,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         return grayMatrix;
     }
 
-    public static BufferedImage getGrayImage(int[][] grayMatrix) {
+    public static BufferedImage getImagemCinza(int[][] grayMatrix) {
         int width = grayMatrix.length;
         int height = grayMatrix[0].length;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
@@ -493,24 +523,24 @@ public class telaPrincipal extends javax.swing.JFrame {
         return Math.min(value1, value2);
     }
 
-    public static Imagem doOperationInImages(Imagem image1, Imagem image2, Integer coeficient, Operation operation) {
+    public static Imagem executaOperacaoNasImagens(Imagem image1, Imagem image2, Integer coeficient, Operation operation) {
         Imagem imageResult = new Imagem();
-        imageResult.setRed(operationInTwoMatrixes(image1.getRed(), image2.getRed(), coeficient, operation));
-        imageResult.setGreen(operationInTwoMatrixes(image1.getGreen(), image2.getGreen(), coeficient, operation));
-        imageResult.setBlue(operationInTwoMatrixes(image1.getBlue(), image2.getBlue(), coeficient, operation));
-        imageResult.setAlpha(operationInTwoMatrixes(image1.getAlpha(), image2.getAlpha(), coeficient, operation));
+        imageResult.setRed(executaOperacaoEmDuasMatrizes(image1.getRed(), image2.getRed(), coeficient, operation));
+        imageResult.setGreen(executaOperacaoEmDuasMatrizes(image1.getGreen(), image2.getGreen(), coeficient, operation));
+        imageResult.setBlue(executaOperacaoEmDuasMatrizes(image1.getBlue(), image2.getBlue(), coeficient, operation));
+        imageResult.setAlpha(executaOperacaoEmDuasMatrizes(image1.getAlpha(), image2.getAlpha(), coeficient, operation));
         return imageResult;
     }
 
-    public static Imagem doOperationInImage(Imagem image, Integer value, Integer coeficient, Operation operation) {
+    public static Imagem executaOperacaoNaImagem(Imagem image, Integer value, Integer coeficient, Operation operation) {
         Imagem imageResult = new Imagem();
-        imageResult.setRed(operationSingleMatrix(image.getRed(), value, coeficient, operation));
-        imageResult.setGreen(operationSingleMatrix(image.getGreen(), value, coeficient, operation));
-        imageResult.setBlue(operationSingleMatrix(image.getBlue(), value, coeficient, operation));
+        imageResult.setRed(executaOperacaoEmUmaUnicaMatriz(image.getRed(), value, coeficient, operation));
+        imageResult.setGreen(executaOperacaoEmUmaUnicaMatriz(image.getGreen(), value, coeficient, operation));
+        imageResult.setBlue(executaOperacaoEmUmaUnicaMatriz(image.getBlue(), value, coeficient, operation));
         return imageResult;
     }
 
-    public static int[][] operationInTwoMatrixes(int[][] matrix1, int[][] matrix2, Integer coeficient, Operation operation) {
+    public static int[][] executaOperacaoEmDuasMatrizes(int[][] matrix1, int[][] matrix2, Integer coeficient, Operation operation) {
         int maxWidth = getMaxValue(matrix1.length, matrix2.length);
         int minWidth = getMinValue(matrix1.length, matrix2.length);
         int maxHeight = getMaxValue(matrix1[0].length, matrix2[0].length);
@@ -550,7 +580,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         return result;
     }
 
-    private static int[][] operationSingleMatrix(int[][] matrix, Integer value, Integer coeficient, Operation operation) {
+    private static int[][] executaOperacaoEmUmaUnicaMatriz(int[][] matrix, Integer value, Integer coeficient, Operation operation) {
         int width = matrix.length;
         int height = matrix[0].length;
         int[][] result = new int[width][height];
@@ -562,14 +592,14 @@ public class telaPrincipal extends javax.swing.JFrame {
         }
         return result;
     }
-    
+
     public BufferedImage getGrayImage(Imagem image) {
-        int[][] grayMatrix = rgbToGray(image.getRed(), image.getGreen(), image.getBlue());
-        return getGrayImage(grayMatrix);
+        int[][] grayMatrix = convRgbCinza(image.getRed(), image.getGreen(), image.getBlue());
+        return getImagemCinza(grayMatrix);
     }
 
     public BufferedImage getBinaryImage(Imagem image) {
-        int[][] binaryMatrix = rgbToBinary(image.getRed(), image.getGreen(), image.getBlue(), 128);
+        int[][] binaryMatrix = convRbgBinario(image.getRed(), image.getGreen(), image.getBlue(), 128);
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -584,9 +614,9 @@ public class telaPrincipal extends javax.swing.JFrame {
         }
         return img;
     }
-    
+
     private boolean validateImgA() {
-        if (imageA == null) {
+        if (imagemA == null) {
             JOptionPane.showMessageDialog(null, "Escolha a Imagem A");
             return false;
         }
@@ -597,13 +627,13 @@ public class telaPrincipal extends javax.swing.JFrame {
         if (!validateImgA()) {
             return false;
         }
-        if (imageB == null) {
+        if (imagemB == null) {
             JOptionPane.showMessageDialog(null, "Escolha a Imagem B");
             return false;
         }
         return true;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicao;
     private javax.swing.JButton btnAnd;
@@ -620,6 +650,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSubtracao;
     private javax.swing.JButton btnXor;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelImage1;
     private javax.swing.JLabel labelImage2;
     private javax.swing.JLabel labelResultado;
