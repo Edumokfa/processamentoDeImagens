@@ -18,7 +18,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>com.mycompany.processamentoimagens.ProcessamentoImagens</exec.mainClass>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -30,6 +30,11 @@
             <groupId>unknown.binary</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version>
         </dependency>
     </dependencies>
 </project>

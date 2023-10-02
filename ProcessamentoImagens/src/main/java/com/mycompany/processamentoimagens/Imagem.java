@@ -3,10 +3,6 @@ package com.mycompany.processamentoimagens;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-/**
- *
- * @author Pedro
- */
 public class Imagem implements Serializable {
 
     private BufferedImage image;
@@ -19,18 +15,15 @@ public class Imagem implements Serializable {
     }
 
     public Imagem(BufferedImage img) {
-        this.image = img;
+        int colunas = img.getWidth();
+        int linhas = img.getHeight();
+        this.red = new int[colunas][linhas];
+        this.green = new int[colunas][linhas];
+        this.blue = new int[colunas][linhas];
+        this.alpha = new int[colunas][linhas];
 
-        int cols = img.getWidth();
-        int rows = img.getHeight();
-
-        this.red = new int[cols][rows];
-        this.green = new int[cols][rows];
-        this.blue = new int[cols][rows];
-        this.alpha = new int[cols][rows];
-
-        for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < cols; x++) {
+        for (int y = 0; y < linhas; y++) {
+            for (int x = 0; x < colunas; x++) {
                 int clr = img.getRGB(x, y);
                 this.alpha[x][y] = 255;
                 this.red[x][y] = (clr >> 16) & 255;
@@ -38,6 +31,8 @@ public class Imagem implements Serializable {
                 this.blue[x][y] = clr & 255;
             }
         }
+
+        this.image = img;
     }
 
     public Imagem(int width, int height) {
@@ -51,8 +46,8 @@ public class Imagem implements Serializable {
     }
 
     public BufferedImage getMatrixImage() {
-        int width = this.red.length;
-        int height = this.red[0].length;
+        int width = getWidth();
+        int height = getHeight();
 
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
