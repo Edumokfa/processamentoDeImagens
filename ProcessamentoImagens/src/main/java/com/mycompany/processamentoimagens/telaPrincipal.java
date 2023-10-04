@@ -29,6 +29,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         labelResultado = new javax.swing.JLabel();
         labelImage1 = new javax.swing.JLabel();
         labelImage2 = new javax.swing.JLabel();
@@ -55,6 +56,10 @@ public class telaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnBlending = new javax.swing.JButton();
         labelHistograma = new javax.swing.JLabel();
+        btnMax = new javax.swing.JButton();
+        rb3x3 = new javax.swing.JRadioButton();
+        rb5x5 = new javax.swing.JRadioButton();
+        rb7x7 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -243,6 +248,27 @@ public class telaPrincipal extends javax.swing.JFrame {
         labelHistograma.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(labelHistograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 460, 600, 400));
 
+        btnMax.setText("Max");
+        btnMax.setEnabled(false);
+        btnMax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 650, 120, -1));
+
+        buttonGroup1.add(rb3x3);
+        rb3x3.setText("3x3");
+        getContentPane().add(rb3x3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 680, -1, -1));
+
+        buttonGroup1.add(rb5x5);
+        rb5x5.setText("5x5");
+        getContentPane().add(rb5x5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 680, -1, -1));
+
+        buttonGroup1.add(rb7x7);
+        rb7x7.setText("7x7");
+        getContentPane().add(rb7x7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 680, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -296,6 +322,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         this.btnEscalaCinza.setEnabled(true);
         this.btnNegativo.setEnabled(true);
         this.btnHistograma.setEnabled(true);
+        this.btnMax.setEnabled(true);
     }
 
     private void habilitaBotoesImagemB() {
@@ -393,6 +420,21 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void btnBlendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlendingActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBlendingActionPerformed
+
+    private void btnMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxActionPerformed
+        int filterLength = getFiltroTamanho();
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyFilterInImage(imagemA, filterLength, "M").getMatrixImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_btnMaxActionPerformed
+
+    private int getFiltroTamanho() {
+        if (rb3x3.isSelected()) {
+            return 1;
+        } else if (rb5x5.isSelected()) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
 
     public static void main(String args[]) {
         try {
@@ -725,18 +767,23 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnDivisao;
     private javax.swing.JButton btnEscalaCinza;
     private javax.swing.JButton btnHistograma;
+    private javax.swing.JButton btnMax;
     private javax.swing.JButton btnMultiplicacao;
     private javax.swing.JButton btnNegativo;
     private javax.swing.JButton btnNot;
     private javax.swing.JButton btnOr;
     private javax.swing.JButton btnSubtracao;
     private javax.swing.JButton btnXor;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelHistograma;
     private javax.swing.JLabel labelImage1;
     private javax.swing.JLabel labelImage2;
     private javax.swing.JLabel labelResultado;
+    private javax.swing.JRadioButton rb3x3;
+    private javax.swing.JRadioButton rb5x5;
+    private javax.swing.JRadioButton rb7x7;
     private javax.swing.JTextField tfAdicao;
     private javax.swing.JTextField tfBlending;
     private javax.swing.JTextField tfDivisao;
