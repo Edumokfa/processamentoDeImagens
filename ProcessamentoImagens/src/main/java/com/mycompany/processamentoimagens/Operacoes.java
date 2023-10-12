@@ -1,7 +1,5 @@
 package com.mycompany.processamentoimagens;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Operacoes {
 
@@ -16,6 +14,7 @@ public class Operacoes {
     public static Integer BLENDING = 9;
     public static Integer NEGATIVO = 10;
     public static Integer HISTOGRAMA = 11;
+    public static Integer GAUSSIANO = 12;
 
     public static String R = "R";
     public static String G = "G";
@@ -83,5 +82,55 @@ public class Operacoes {
         } else {
             return x & 0XFF;
         }
+    }
+    
+    public static int calculaFiltroGaussiano(Integer[][] focus, Double desvioPadrao) {
+        int tamanhoKernel = 5;
+            double[][] kernel = getKernelGaussiano(tamanhoKernel, desvioPadrao);
+
+            double soma = 0.0;
+            int metadeTamanho = tamanhoKernel / 2;
+
+            for (int i = 0; i < focus.length; i++) {
+                for (int j = 0; j < focus[i].length; j++) {
+                    for (int x = 0; x < tamanhoKernel; x++) {
+                        for (int y = 0; y < tamanhoKernel; y++) {
+                            int novoX = i + x - metadeTamanho;
+                            int novoY = j + y - metadeTamanho;
+
+                            if (novoX >= 0 && novoX < focus.length && novoY >= 0 && novoY < focus[i].length) {
+                                soma += focus[novoX][novoY] * kernel[x][y];
+                            }
+                        }
+                    }
+                }
+            }
+
+            int novoValor = (int) Math.round(soma);
+            return novoValor;
+    }
+    
+    public static double[][] getKernelGaussiano(int tamanho, double desvioPadrao) {
+        double[][] kernel = new double[tamanho][tamanho];
+        double soma = 0.0;
+        int metadeTamanho = tamanho / 2;
+
+        for (int x = 0; x < tamanho; x++) {
+            for (int y = 0; y < tamanho; y++) {
+                int deslocamentoX = x - metadeTamanho;
+                int deslocamentoY = y - metadeTamanho;
+                double exponent = -((deslocamentoX * deslocamentoX + deslocamentoY * deslocamentoY) / (2.0 * desvioPadrao * desvioPadrao));
+                kernel[x][y] = (1.0 / (2.0 * Math.PI * desvioPadrao * desvioPadrao)) * Math.exp(exponent);
+                soma += kernel[x][y];
+            }
+        }
+
+        for (int x = 0; x < tamanho; x++) {
+            for (int y = 0; y < tamanho; y++) {
+                kernel[x][y] /= soma;
+            }
+        }
+
+        return kernel;
     }
 }

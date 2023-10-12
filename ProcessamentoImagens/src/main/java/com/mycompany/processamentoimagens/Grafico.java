@@ -30,7 +30,7 @@ public class Grafico implements Serializable {
                 dataset, PlotOrientation.VERTICAL,
                 true, true, false);
 
-        File chart = new File("C:\\testeHistograma\\histogram.png");
+        File chart = new File("C:\\processamentoDeImagens\\histogram.png");
 
         try {
             ChartUtils.saveChartAsPNG(chart, barChart, 600, 400);

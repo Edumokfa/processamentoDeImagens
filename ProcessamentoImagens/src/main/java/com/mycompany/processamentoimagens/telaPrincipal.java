@@ -55,6 +55,8 @@ public class telaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnBlending = new javax.swing.JButton();
         labelHistograma = new javax.swing.JLabel();
+        btnMultiplicacao1 = new javax.swing.JButton();
+        tfDesvioPadrao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -243,6 +245,22 @@ public class telaPrincipal extends javax.swing.JFrame {
         labelHistograma.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(labelHistograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 460, 600, 400));
 
+        btnMultiplicacao1.setText("Gaussiano");
+        btnMultiplicacao1.setEnabled(false);
+        btnMultiplicacao1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMultiplicacao1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMultiplicacao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 690, 120, 25));
+
+        tfDesvioPadrao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDesvioPadraoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tfDesvioPadrao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 720, 120, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -296,6 +314,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         this.btnEscalaCinza.setEnabled(true);
         this.btnNegativo.setEnabled(true);
         this.btnHistograma.setEnabled(true);
+        this.btnMultiplicacao1.setEnabled(true);
     }
 
     private void habilitaBotoesImagemB() {
@@ -345,7 +364,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void btnSubtracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubtracaoActionPerformed
         String txt = tfSubtracao.getText();
         if (txt == null || txt.isEmpty()) {
-            labelHistograma.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operacoes.SUBTRACAO).getMatrixImage()));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operacoes.SUBTRACAO).getMatrixImage()));
         } else {
             int value = Integer.parseInt(txt);
             labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagem(imagemA, value, null, Operacoes.SUBTRACAO).getMatrixImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
@@ -394,6 +413,25 @@ public class telaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBlendingActionPerformed
 
+    private void btnMultiplicacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiplicacao1ActionPerformed
+        double desvioPadrao = 1;
+        if (tfDesvioPadrao.getText() != null && !tfDesvioPadrao.getText().isBlank()) {
+            try {
+                desvioPadrao = Double.valueOf(tfDesvioPadrao.getText());
+            } catch (NumberFormatException e) {
+                desvioPadrao = 1;
+            }
+        }
+        int filterLength = 5;
+        labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagemMatriz(imagemA, filterLength, desvioPadrao, Operacoes.GAUSSIANO).getMatrixImage()));
+    }//GEN-LAST:event_btnMultiplicacao1ActionPerformed
+
+    private void tfDesvioPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDesvioPadraoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDesvioPadraoActionPerformed
+
+    
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -533,6 +571,14 @@ public class telaPrincipal extends javax.swing.JFrame {
         return imagemAlterada;
     }
 
+    public static Imagem executaOperacaoNaImagemMatriz(Imagem image, Integer value, Double desvioPadrao, Integer operation) {
+        Imagem imagemAlterada = new Imagem();
+        imagemAlterada.setRed(filterSingleMatrix(image.getRed(), value, operation, desvioPadrao));
+        imagemAlterada.setGreen(filterSingleMatrix(image.getGreen(), value, operation, desvioPadrao));
+        imagemAlterada.setBlue(filterSingleMatrix(image.getBlue(), value, operation, desvioPadrao));
+        return imagemAlterada;
+    }
+    
     public static int[][] executaOperacaoEmDuasMatrizes(int[][] matrix1, int[][] matrix2, Integer coeficient, Integer operacao) {
         int maxWidth = getMaxValue(matrix1.length, matrix2.length);
         int minWidth = getMinValue(matrix1.length, matrix2.length);
@@ -619,6 +665,53 @@ public class telaPrincipal extends javax.swing.JFrame {
         return result;
     }
 
+    private static int[][] filterSingleMatrix(int[][] matrix, Integer bounds, Integer operacao, Double desvioPadrao) {
+        int width = matrix.length;
+        int height = matrix[0].length;
+        int[][] filteredMatrix = new int[width][height];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Integer[][] focus = getFocus(matrix, bounds, x, y);
+                filteredMatrix[x][y] = realizaOperacaoMatriz(focus, desvioPadrao, operacao);
+            }
+        }
+
+        return filteredMatrix;
+    }
+    
+    private static Integer[][] getFocus(int[][] matrix, Integer bounds, int posX, int posY) {
+        int focusSize = bounds * 2 + 1;
+        Integer[][] focus = new Integer[focusSize][focusSize];
+
+        for (int y = 0; y < focusSize; y++) {
+            for (int x = 0; x < focusSize; x++) {
+                int posFocusX = posX + (x - bounds);
+                int posFocusY = posY + (y - bounds);
+                if (isPositionValid(matrix, posFocusX, posFocusY)) {
+                    focus[x][y] = matrix[posFocusX][posFocusY];
+                } else {
+                    focus[x][y] = 0;
+                }
+            }
+        }
+        return focus;
+    }
+    
+    private static boolean isPositionValid(int[][] matrix, int posX, int posY) {
+        int width = matrix.length;
+        int height = matrix[0].length;
+
+        return posX >= 0 && posX < width && posY >= 0 && posY < height;
+    }
+    
+    private static int realizaOperacaoMatriz(Integer[][] matrix, Double desvioPadrao, Integer operacao) {
+        if (Operacoes.GAUSSIANO.equals(operacao)){
+            return Operacoes.calculaFiltroGaussiano(matrix, desvioPadrao);
+        }
+        return 0;
+    }
+    
     private static int realizaOperacao(Integer x, Integer y, Integer coeficiente, Integer operacao, String corAtual) {
         if (Operacoes.SOMA.equals(operacao)) {
             return Operacoes.calculaSoma(x, y);
@@ -642,7 +735,7 @@ public class telaPrincipal extends javax.swing.JFrame {
             return Operacoes.calculaNegativo(x);
         } else if (Operacoes.HISTOGRAMA.equals(operacao)) {
             return Operacoes.calculaHistograma(x, corAtual);
-        }
+        } 
         return 0;
     }
 
@@ -726,6 +819,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEscalaCinza;
     private javax.swing.JButton btnHistograma;
     private javax.swing.JButton btnMultiplicacao;
+    private javax.swing.JButton btnMultiplicacao1;
     private javax.swing.JButton btnNegativo;
     private javax.swing.JButton btnNot;
     private javax.swing.JButton btnOr;
@@ -739,6 +833,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelResultado;
     private javax.swing.JTextField tfAdicao;
     private javax.swing.JTextField tfBlending;
+    private javax.swing.JTextField tfDesvioPadrao;
     private javax.swing.JTextField tfDivisao;
     private javax.swing.JTextField tfMultiplicacao;
     private javax.swing.JTextField tfSubtracao;
