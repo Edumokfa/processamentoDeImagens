@@ -1,6 +1,5 @@
 package com.mycompany.processamentoimagens;
 
-
 public class Operacoes {
 
     public static Integer SOMA = 1;
@@ -132,5 +131,70 @@ public class Operacoes {
         }
 
         return kernel;
+    }
+
+    private static int getFiltroMax(Integer[][] focus, Double desvioPadrao) {
+        int width = focus.length;
+        int height = focus[0].length;
+        int maxValue = 0;
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (focus[x][y] != null && focus[x][y] > maxValue) {
+                    maxValue = focus[x][y];
+                }
+            }
+        }
+
+        return maxValue;
+    }
+
+    public static Imagem applyFilterInImage(Imagem image, int bounds, String tipoFiltro) {
+        Imagem imageResult = new Imagem();
+        imageResult.setRed(filterSingleMatrix(image.getRed(), bounds, tipoFiltro, null));
+        imageResult.setGreen(filterSingleMatrix(image.getGreen(), bounds, tipoFiltro, null));
+        imageResult.setBlue(filterSingleMatrix(image.getBlue(), bounds, tipoFiltro, null));
+        return imageResult;
+    }
+
+    private static int[][] filterSingleMatrix(int[][] matrix, Integer bounds, String tipoFiltro, Double desvioPadrao) {
+        int width = matrix.length;
+        int height = matrix[0].length;
+        int[][] filteredMatrix = new int[width][height];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Integer[][] focus = getFocus(matrix, bounds, x, y);
+                if ("M".equals(tipoFiltro)) {
+                    filteredMatrix[x][y] = getFiltroMax(focus, desvioPadrao);
+                }
+
+            }
+        }
+
+        return filteredMatrix;
+    }
+
+    private static Integer[][] getFocus(int[][] matrix, Integer bounds, int posX, int posY) {
+        int focusSize = bounds * 2 + 1;
+        Integer[][] focus = new Integer[focusSize][focusSize];
+
+        for (int y = 0; y < focusSize; y++) {
+            for (int x = 0; x < focusSize; x++) {
+                int posFocusX = posX + (x - bounds);
+                int posFocusY = posY + (y - bounds);
+                if (isPositionValid(matrix, posFocusX, posFocusY)) {
+                    focus[x][y] = matrix[posFocusX][posFocusY];
+                }
+            }
+        }
+        return focus;
+    }
+
+    private static boolean isPositionValid(int[][] matrix, int posX, int posY) {
+        int width = matrix.length;
+        int height = matrix[0].length;
+
+        return posX >= 0 && posX < width && posY >= 0 && posY < height;
     }
 }
