@@ -29,6 +29,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         labelResultado = new javax.swing.JLabel();
         labelImage1 = new javax.swing.JLabel();
         labelImage2 = new javax.swing.JLabel();
@@ -57,6 +58,17 @@ public class telaPrincipal extends javax.swing.JFrame {
         labelHistograma = new javax.swing.JLabel();
         btnMultiplicacao1 = new javax.swing.JButton();
         tfDesvioPadrao = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnMax = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        btnMin = new javax.swing.JButton();
+        btnMedia = new javax.swing.JButton();
+        btnMediana = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        txtOrdem = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -261,6 +273,87 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(tfDesvioPadrao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 720, 120, -1));
 
+        jLabel3.setText("Filtros");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 690, 50, -1));
+
+        btnMax.setText("MAX");
+        btnMax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 710, 120, -1));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("3 X 3");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 690, -1, -1));
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("5 X 5");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 690, -1, -1));
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("7 X 7");
+        getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 690, -1, -1));
+
+        btnMin.setText("MIN");
+        btnMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 710, 130, -1));
+
+        btnMedia.setText("MEDIA");
+        btnMedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMediaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 740, 120, -1));
+
+        btnMediana.setText("MEDIANA");
+        btnMediana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedianaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 740, 130, -1));
+
+        jButton1.setText("ORDEM");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 780, 120, -1));
+
+        txtOrdem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrdemActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 810, 120, -1));
+
+        jButton2.setText("SUAV. CONSERVATIVA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 780, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -422,16 +515,60 @@ public class telaPrincipal extends javax.swing.JFrame {
                 desvioPadrao = 1;
             }
         }
-        int filterLength = 5;
-        labelResultado.setIcon(new ImageIcon(executaOperacaoNaImagemMatriz(imagemA, filterLength, desvioPadrao, Operacoes.GAUSSIANO).getMatrixImage()));
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyGaussianFilter(imagemA.getImage(), desvioPadrao).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_btnMultiplicacao1ActionPerformed
 
     private void tfDesvioPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDesvioPadraoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDesvioPadraoActionPerformed
 
-    
-    
+    private void btnMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyMaxFilter(imagemA.getImage(), getTamanhoFiltro()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_btnMaxActionPerformed
+
+    private int getTamanhoFiltro() {
+        if (jRadioButton1.isSelected()) {
+            return 3;
+        } else if (jRadioButton2.isSelected()) {
+            return 5;
+        } else {
+            return 7;
+        }
+    }
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void btnMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyMinFilter(imagemA.getImage(), getTamanhoFiltro()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_btnMinActionPerformed
+
+    private void btnMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMediaActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyAverageFilter(imagemA.getImage(), getTamanhoFiltro()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_btnMediaActionPerformed
+
+    private void btnMedianaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedianaActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyMedianFilter(imagemA.getImage(), getTamanhoFiltro()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_btnMedianaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int ordem = Integer.valueOf(txtOrdem.getText());
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyOrderFilter(imagemA.getImage(), getTamanhoFiltro(), ordem).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtOrdemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrdemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrdemActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyConservativeSmoothing(imagemA.getImage(), getTamanhoFiltro(), 100).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -578,7 +715,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         imagemAlterada.setBlue(filterSingleMatrix(image.getBlue(), value, operation, desvioPadrao));
         return imagemAlterada;
     }
-    
+
     public static int[][] executaOperacaoEmDuasMatrizes(int[][] matrix1, int[][] matrix2, Integer coeficient, Integer operacao) {
         int maxWidth = getMaxValue(matrix1.length, matrix2.length);
         int minWidth = getMinValue(matrix1.length, matrix2.length);
@@ -679,7 +816,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
         return filteredMatrix;
     }
-    
+
     private static Integer[][] getFocus(int[][] matrix, Integer bounds, int posX, int posY) {
         int focusSize = bounds * 2 + 1;
         Integer[][] focus = new Integer[focusSize][focusSize];
@@ -697,21 +834,21 @@ public class telaPrincipal extends javax.swing.JFrame {
         }
         return focus;
     }
-    
+
     private static boolean isPositionValid(int[][] matrix, int posX, int posY) {
         int width = matrix.length;
         int height = matrix[0].length;
 
         return posX >= 0 && posX < width && posY >= 0 && posY < height;
     }
-    
+
     private static int realizaOperacaoMatriz(Integer[][] matrix, Double desvioPadrao, Integer operacao) {
-        if (Operacoes.GAUSSIANO.equals(operacao)){
+        if (Operacoes.GAUSSIANO.equals(operacao)) {
             return Operacoes.calculaFiltroGaussiano(matrix, desvioPadrao);
         }
         return 0;
     }
-    
+
     private static int realizaOperacao(Integer x, Integer y, Integer coeficiente, Integer operacao, String corAtual) {
         if (Operacoes.SOMA.equals(operacao)) {
             return Operacoes.calculaSoma(x, y);
@@ -735,7 +872,7 @@ public class telaPrincipal extends javax.swing.JFrame {
             return Operacoes.calculaNegativo(x);
         } else if (Operacoes.HISTOGRAMA.equals(operacao)) {
             return Operacoes.calculaHistograma(x, corAtual);
-        } 
+        }
         return 0;
     }
 
@@ -818,6 +955,10 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnDivisao;
     private javax.swing.JButton btnEscalaCinza;
     private javax.swing.JButton btnHistograma;
+    private javax.swing.JButton btnMax;
+    private javax.swing.JButton btnMedia;
+    private javax.swing.JButton btnMediana;
+    private javax.swing.JButton btnMin;
     private javax.swing.JButton btnMultiplicacao;
     private javax.swing.JButton btnMultiplicacao1;
     private javax.swing.JButton btnNegativo;
@@ -825,8 +966,15 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnOr;
     private javax.swing.JButton btnSubtracao;
     private javax.swing.JButton btnXor;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JLabel labelHistograma;
     private javax.swing.JLabel labelImage1;
     private javax.swing.JLabel labelImage2;
@@ -837,5 +985,6 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField tfDivisao;
     private javax.swing.JTextField tfMultiplicacao;
     private javax.swing.JTextField tfSubtracao;
+    private javax.swing.JTextField txtOrdem;
     // End of variables declaration//GEN-END:variables
 }
