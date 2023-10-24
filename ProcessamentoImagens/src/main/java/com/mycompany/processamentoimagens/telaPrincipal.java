@@ -69,6 +69,9 @@ public class telaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtOrdem = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -354,6 +357,30 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 780, -1, -1));
 
+        jButton3.setText("Sobel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 750, 120, -1));
+
+        jButton4.setText("Edge");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 780, 120, -1));
+
+        jButton5.setText("Laplaciano");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 810, 120, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -569,6 +596,19 @@ public class telaPrincipal extends javax.swing.JFrame {
         labelResultado.setIcon(new ImageIcon(Operacoes.applyConservativeSmoothing(imagemA.getImage(), getTamanhoFiltro(), 100).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applySobelEdgeDetection(imagemA.getImage()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyPrewittEdgeDetection(imagemA.getImage()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.applyLaplacianFilter(imagemA.getImage()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton5ActionPerformed
+    
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -969,6 +1009,9 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

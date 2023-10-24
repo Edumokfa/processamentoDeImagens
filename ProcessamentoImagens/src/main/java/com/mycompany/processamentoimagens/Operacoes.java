@@ -1,6 +1,8 @@
 package com.mycompany.processamentoimagens;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.Kernel;
+import java.awt.image.ConvolveOp;
 
 public class Operacoes {
 
@@ -513,6 +515,118 @@ public class Operacoes {
                 }
             }
         }
+
+        return outputImage;
+    }
+    
+    public static BufferedImage applySobelEdgeDetection(BufferedImage inputImage) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        // Define os kernels de Sobel para detecção de bordas nas direções horizontal e vertical
+        float[] kernelDataX = {
+            -1, 0, 1,
+            -2, 0, 2,
+            -1, 0, 1
+        };
+        Kernel kernelX = new Kernel(3, 3, kernelDataX);
+
+        float[] kernelDataY = {
+            -1, -2, -1,
+             0,  0,  0,
+             1,  2,  1
+        };
+        Kernel kernelY = new Kernel(3, 3, kernelDataY);
+
+        // Aplica a convolução com os kernels de Sobel
+        ConvolveOp convolveOpX = new ConvolveOp(kernelX);
+        BufferedImage edgeImageX = convolveOpX.filter(inputImage, null);
+
+        ConvolveOp convolveOpY = new ConvolveOp(kernelY);
+        BufferedImage edgeImageY = convolveOpY.filter(inputImage, null);
+
+        // Combina as imagens de bordas nas direções horizontal e vertical
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int pixelX = edgeImageX.getRGB(x, y);
+                int pixelY = edgeImageY.getRGB(x, y);
+
+                int rX = (pixelX >> 16) & 0xff;
+                int rY = (pixelY >> 16) & 0xff;
+
+                int gradient = (int) Math.sqrt(rX * rX + rY * rY);
+                int newPixel = (gradient << 16) | (gradient << 8) | gradient;
+
+                outputImage.setRGB(x, y, newPixel);
+            }
+        }
+
+        return outputImage;
+    }
+    
+    public static BufferedImage applyPrewittEdgeDetection(BufferedImage inputImage) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        // Define os kernels de Prewitt para detecção de bordas nas direções horizontal e vertical
+        float[] kernelDataX = {
+            -1, 0, 1,
+            -1, 0, 1,
+            -1, 0, 1
+        };
+        Kernel kernelX = new Kernel(3, 3, kernelDataX);
+
+        float[] kernelDataY = {
+            -1, -1, -1,
+             0,  0,  0,
+             1,  1,  1
+        };
+        Kernel kernelY = new Kernel(3, 3, kernelDataY);
+
+        // Aplica a convolução com os kernels de Prewitt
+        ConvolveOp convolveOpX = new ConvolveOp(kernelX);
+        BufferedImage edgeImageX = convolveOpX.filter(inputImage, null);
+
+        ConvolveOp convolveOpY = new ConvolveOp(kernelY);
+        BufferedImage edgeImageY = convolveOpY.filter(inputImage, null);
+
+        // Combina as imagens de bordas nas direções horizontal e vertical
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int pixelX = edgeImageX.getRGB(x, y);
+                int pixelY = edgeImageY.getRGB(x, y);
+
+                int rX = (pixelX >> 16) & 0xff;
+                int rY = (pixelY >> 16) & 0xff;
+
+                int gradient = (int) Math.sqrt(rX * rX + rY * rY);
+                int newPixel = (gradient << 16) | (gradient << 8) | gradient;
+
+                outputImage.setRGB(x, y, newPixel);
+            }
+        }
+
+        return outputImage;
+    }
+    
+    public static BufferedImage applyLaplacianFilter(BufferedImage inputImage) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        // Define o kernel de Laplacian
+        float[] kernelData = {
+            0,  1, 0,
+            1, -4, 1,
+            0,  1, 0
+        };
+        Kernel kernel = new Kernel(3, 3, kernelData);
+
+        // Aplica a convolução com o kernel de Laplacian
+        ConvolveOp convolveOp = new ConvolveOp(kernel);
+        outputImage = convolveOp.filter(inputImage, null);
 
         return outputImage;
     }
