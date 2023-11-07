@@ -518,7 +518,7 @@ public class Operacoes {
 
         return outputImage;
     }
-    
+
     public static BufferedImage applySobelEdgeDetection(BufferedImage inputImage) {
         int width = inputImage.getWidth();
         int height = inputImage.getHeight();
@@ -534,8 +534,8 @@ public class Operacoes {
 
         float[] kernelDataY = {
             -1, -2, -1,
-             0,  0,  0,
-             1,  2,  1
+            0, 0, 0,
+            1, 2, 1
         };
         Kernel kernelY = new Kernel(3, 3, kernelDataY);
 
@@ -564,7 +564,7 @@ public class Operacoes {
 
         return outputImage;
     }
-    
+
     public static BufferedImage applyPrewittEdgeDetection(BufferedImage inputImage) {
         int width = inputImage.getWidth();
         int height = inputImage.getHeight();
@@ -580,8 +580,8 @@ public class Operacoes {
 
         float[] kernelDataY = {
             -1, -1, -1,
-             0,  0,  0,
-             1,  1,  1
+            0, 0, 0,
+            1, 1, 1
         };
         Kernel kernelY = new Kernel(3, 3, kernelDataY);
 
@@ -610,7 +610,7 @@ public class Operacoes {
 
         return outputImage;
     }
-    
+
     public static BufferedImage applyLaplacianFilter(BufferedImage inputImage) {
         int width = inputImage.getWidth();
         int height = inputImage.getHeight();
@@ -618,9 +618,9 @@ public class Operacoes {
 
         // Define o kernel de Laplacian
         float[] kernelData = {
-            0,  1, 0,
+            0, 1, 0,
             1, -4, 1,
-            0,  1, 0
+            0, 1, 0
         };
         Kernel kernel = new Kernel(3, 3, kernelData);
 
@@ -655,5 +655,136 @@ public class Operacoes {
         int smoothedPixel = (smoothedGray << 16) | (smoothedGray << 8) | smoothedGray;
 
         return smoothedPixel;
+    }
+
+    public static BufferedImage dilate(BufferedImage inputImage, int kernelSize) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+
+        int halfKernelSize = kernelSize / 2;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (isWhite(inputImage.getRGB(x, y))) {
+                    for (int i = -halfKernelSize; i <= halfKernelSize; i++) {
+                        for (int j = -halfKernelSize; j <= halfKernelSize; j++) {
+                            int newX = x + i;
+                            int newY = y + j;
+                            if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
+                                outputImage.setRGB(newX, newY, -1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return outputImage;
+    }
+
+    public static boolean isWhite(int pixel) {
+        // Verifica se o pixel é branco (valor 0xFFFFFF)
+        return pixel == -1;
+    }
+
+    public static BufferedImage erode(BufferedImage inputImage, int kernelSize) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+
+        int halfKernelSize = kernelSize / 2;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                boolean allWhite = true;
+
+                for (int i = -halfKernelSize; i <= halfKernelSize; i++) {
+                    for (int j = -halfKernelSize; j <= halfKernelSize; j++) {
+                        int newX = x + i;
+                        int newY = y + j;
+
+                        if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
+                            if (!isWhite(inputImage.getRGB(newX, newY))) {
+                                allWhite = false;
+                                break;
+                            }
+                        } else {
+                            allWhite = false;
+                        }
+                    }
+
+                    if (!allWhite) {
+                        break;
+                    }
+                }
+
+                if (allWhite) {
+                    outputImage.setRGB(x, y, 0xffffff); // Define como branco
+                }
+            }
+        }
+
+        return outputImage;
+    }
+
+    public static BufferedImage morphologicalOpening(BufferedImage inputImage, int kernelSize) {
+        BufferedImage erodedImage = erode(inputImage, kernelSize);
+        BufferedImage openedImage = dilate(erodedImage, kernelSize);
+
+        return openedImage;
+    }
+
+    public static BufferedImage morphologicalClosing(BufferedImage inputImage, int kernelSize) {
+        BufferedImage dilatedImage = dilate(inputImage, kernelSize);
+        BufferedImage closedImage = erode(dilatedImage, kernelSize);
+
+        return closedImage;
+    }
+
+    public static BufferedImage detectEdges(BufferedImage inputImage) {
+        int width = inputImage.getWidth();
+        int height = inputImage.getHeight();
+        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                int gx = getGradientX(inputImage, x, y);
+                int gy = getGradientY(inputImage, x, y);
+                int gradient = (int) Math.sqrt(gx * gx + gy * gy);
+
+                if (gradient > 128) {
+                    outputImage.setRGB(x, y, 0xffffff); // Define como branco
+                } else {
+                    outputImage.setRGB(x, y, 0); // Define como preto
+                }
+            }
+        }
+
+        return outputImage;
+    }
+
+    public static int getGradientX(BufferedImage image, int x, int y) {
+        int p1 = getPixelValue(image, x - 1, y - 1);
+        int p2 = getPixelValue(image, x - 1, y);
+        int p3 = getPixelValue(image, x - 1, y + 1);
+        int p4 = getPixelValue(image, x + 1, y - 1);
+        int p5 = getPixelValue(image, x + 1, y);
+        int p6 = getPixelValue(image, x + 1, y + 1);
+        return (p1 + 2 * p2 + p3) - (p4 + 2 * p5 + p6);
+    }
+
+    public static int getGradientY(BufferedImage image, int x, int y) {
+        int p1 = getPixelValue(image, x - 1, y - 1);
+        int p2 = getPixelValue(image, x, y - 1);
+        int p3 = getPixelValue(image, x + 1, y - 1);
+        int p4 = getPixelValue(image, x - 1, y + 1);
+        int p5 = getPixelValue(image, x, y + 1);
+        int p6 = getPixelValue(image, x + 1, y + 1);
+        return (p1 + 2 * p2 + p3) - (p4 + 2 * p5 + p6);
+    }
+
+    public static int getPixelValue(BufferedImage image, int x, int y) {
+        return (image.getRGB(x, y) & 0xff);
     }
 }

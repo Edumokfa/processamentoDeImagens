@@ -72,6 +72,11 @@ public class telaPrincipal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -381,6 +386,46 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 810, 120, -1));
 
+        jButton6.setText("Dilatar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 840, 120, -1));
+
+        jButton7.setText("Erosão");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 840, 120, -1));
+
+        jButton8.setText("Abertura");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 870, 120, -1));
+
+        jButton9.setText("Fechamento");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 870, 120, -1));
+
+        jButton10.setText("Contorno");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 900, 120, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -607,6 +652,26 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         labelResultado.setIcon(new ImageIcon(Operacoes.applyLaplacianFilter(imagemA.getImage()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.dilate(imagemA.getImage(), 3).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.erode(imagemA.getImage(), 3).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.morphologicalOpening(imagemA.getImage(), 3).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.morphologicalClosing(imagemA.getImage(), 3).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        labelResultado.setIcon(new ImageIcon(Operacoes.detectEdges(imagemA.getImage()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+    }//GEN-LAST:event_jButton10ActionPerformed
     
     
     public static void main(String args[]) {
@@ -1008,10 +1073,15 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnXor;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
