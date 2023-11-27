@@ -77,6 +77,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1080));
@@ -285,6 +286,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 690, 50, -1));
 
         btnMax.setText("MAX");
+        btnMax.setEnabled(false);
         btnMax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMaxActionPerformed(evt);
@@ -316,6 +318,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 690, -1, -1));
 
         btnMin.setText("MIN");
+        btnMin.setEnabled(false);
         btnMin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMinActionPerformed(evt);
@@ -324,6 +327,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 710, 130, -1));
 
         btnMedia.setText("MEDIA");
+        btnMedia.setEnabled(false);
         btnMedia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMediaActionPerformed(evt);
@@ -332,6 +336,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnMedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 740, 120, -1));
 
         btnMediana.setText("MEDIANA");
+        btnMediana.setEnabled(false);
         btnMediana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMedianaActionPerformed(evt);
@@ -340,6 +345,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnMediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 740, 130, -1));
 
         jButton1.setText("ORDEM");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -355,6 +361,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(txtOrdem, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 810, 120, -1));
 
         jButton2.setText("SUAV. CONSERVATIVA");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -363,6 +370,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 780, -1, -1));
 
         jButton3.setText("Sobel");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -371,6 +379,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 750, 120, -1));
 
         jButton4.setText("Edge");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -379,6 +388,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 780, 120, -1));
 
         jButton5.setText("Laplaciano");
+        jButton5.setEnabled(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -387,6 +397,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 810, 120, -1));
 
         jButton6.setText("Dilatar");
+        jButton6.setEnabled(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -395,6 +406,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 840, 120, -1));
 
         jButton7.setText("Erosão");
+        jButton7.setEnabled(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -403,6 +415,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 840, 120, -1));
 
         jButton8.setText("Abertura");
+        jButton8.setEnabled(false);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -411,6 +424,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 870, 120, -1));
 
         jButton9.setText("Fechamento");
+        jButton9.setEnabled(false);
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -419,12 +433,16 @@ public class telaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 870, 120, -1));
 
         jButton10.setText("Contorno");
+        jButton10.setEnabled(false);
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 900, 120, -1));
+
+        jLabel4.setText("De 0 a 1");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 590, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -480,6 +498,21 @@ public class telaPrincipal extends javax.swing.JFrame {
         this.btnNegativo.setEnabled(true);
         this.btnHistograma.setEnabled(true);
         this.btnMultiplicacao1.setEnabled(true);
+
+        this.btnMin.setEnabled(true);
+        this.btnMax.setEnabled(true);
+        this.btnMedia.setEnabled(true);
+        this.btnMediana.setEnabled(true);
+        this.jButton1.setEnabled(true);
+        this.jButton2.setEnabled(true);
+        this.jButton3.setEnabled(true);
+        this.jButton4.setEnabled(true);
+        this.jButton5.setEnabled(true);
+        this.jButton6.setEnabled(true);
+        this.jButton7.setEnabled(true);
+        this.jButton8.setEnabled(true);
+        this.jButton9.setEnabled(true);
+        this.jButton10.setEnabled(true);
     }
 
     private void habilitaBotoesImagemB() {
@@ -489,6 +522,7 @@ public class telaPrincipal extends javax.swing.JFrame {
             this.btnNot.setEnabled(true);
             this.btnXor.setEnabled(true);
             this.btnHistograma.setEnabled(true);
+            this.btnBlending.setEnabled(true);
         }
     }
 
@@ -518,7 +552,7 @@ public class telaPrincipal extends javax.swing.JFrame {
             labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operacoes.SOMA).getMatrixImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
         } else {
             int value = Integer.parseInt(txt);
-            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, imagemB, null, Operacoes.SOMA).getMatrixImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+            labelResultado.setIcon(new ImageIcon(executaOperacaoNasImagens(imagemA, null, value, Operacoes.SOMA).getMatrixImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
         }
     }//GEN-LAST:event_btnAdicaoActionPerformed
 
@@ -575,7 +609,12 @@ public class telaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDivisaoActionPerformed
 
     private void btnBlendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlendingActionPerformed
-        // TODO add your handling code here:
+        String text = tfBlending.getText();
+        if (text == null || text.isEmpty()) {
+            return;
+        }
+        double value = Double.parseDouble(text);
+        labelResultado.setIcon(new ImageIcon(Operacoes.blendImages(imagemA.getImage(), imagemB.getImage(), value).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_btnBlendingActionPerformed
 
     private void btnMultiplicacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiplicacao1ActionPerformed
@@ -672,8 +711,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         labelResultado.setIcon(new ImageIcon(Operacoes.detectEdges(imagemA.getImage()).getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_jButton10ActionPerformed
-    
-    
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -1085,6 +1123,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;

@@ -1,5 +1,6 @@
 package com.mycompany.processamentoimagens;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.Kernel;
 import java.awt.image.ConvolveOp;
@@ -786,5 +787,20 @@ public class Operacoes {
 
     public static int getPixelValue(BufferedImage image, int x, int y) {
         return (image.getRGB(x, y) & 0xff);
+    }
+
+    public static BufferedImage blendImages(BufferedImage image1, BufferedImage image2, double alpha) {
+        int width = Math.min(image1.getWidth(), image2.getWidth());
+        int height = Math.min(image1.getHeight(), image2.getHeight());
+
+        BufferedImage blendedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g = blendedImage.createGraphics();
+        g.drawImage(image1, 0, 0, null);
+        g.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, (float) alpha));
+        g.drawImage(image2, 0, 0, null);
+        g.dispose();
+
+        return blendedImage;
     }
 }
